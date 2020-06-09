@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人员管理系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="system.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 管理系统人员 -->
+        <div class="wrapper">
+            <div class="header">
+                <span class="name">姓名</span>
+                <input type="text" placeholder="请输入姓名" class="inputtext" v-model.trim="message">
+                <button class="btn" @click="searchbtn">搜索</button>
+            </div>
+            <div class="container">
+                <table class="tab">
+                    <tr>
+                        <th class="data-column">
+                            日期
+                            <img :src="imgs" @click="myarrow">
+                        </th>
+                        <th class="name-column">姓名</th>
+                        <th class="address-column">地址</th>
+                        <th class="code-column">邮编</th>
+                        <th class="opa-column">操作</th>
+                    </tr>
+                    <tr v-for="(item,index) in list">
+                        <td>{{item.data}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.address}}</td>
+                        <td>{{item.code}}</td>
+                        <td>
+                            <button class="editBtn" @click="myeditbtn(index)">编辑</button>
+                            <button class="delBtn" @click="mydelbtn(index)">删除</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 遮罩层 -->
+        <div class="mask" v-if="mymaskstyle" :index="index">
+            <div class="mask-container">
+                <p>姓名</p>
+                <input type="text" class="inputtext" v-model="namechange">
+                <p>地址</p>
+                <input type="text" class="inputtext" v-model="addresschange">
+                <p>邮编</p>
+                <input type="text" class="inputtext" v-model="codechange">
+                <div class="mask-btn">
+                    <button class="cancelbtn" @click="mycancelbtn">取消</button>
+                    <button class="savebtn" @click="mysavebtn(index)">保存</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var obj = [
+            {
+                data: "2015-05-01",
+                name: "王小虎",
+                address: "上海市普陀区金沙江路1518弄",
+                code: "200333"
+            },
+            {
+                data: "2016-11-04",
+                name: "陈晨",
+                address: "苏州市平江区",
+                code: "100000"
+            },
+            {
+                data: "2014-06-25",
+                name: "宁浩",
+                address: "常州市金坛区天宇人家",
+                code: "100001"
+            },
+            {
+                data: "2017-05-01",
+                name: "张海",
+                address: "安庆市大观区",
+                code: "100002"
+            },
+            {
+                data: "2016-11-05",
+                name: "陈王",
+                address: "合肥市包河区",
+                code: "100003"
+            },
+            {
+                data: "2015-05-02",
+                name: "王浩",
+                address: "北京市昌平区",
+                code: "100004"
+            }
+        ]
+        var app = new Vue({
+            el: "#app",
+            data: {
+                newobj:[],
+                message: "",
+                index: 0,
+                mymaskstyle: false,
+                namechange: "",
+                addresschange: "",
+                codechange: "",
+                imgs: "img/arrow.png",
+                sorted: false,
+                list: obj
+            },
+            methods: {
+                // 编辑按钮
+                myeditbtn(index) {
+                    this.index = index;
+                    this.namechange=this.list[index].name;
+                    this.addresschange=this.list[index].address;
+                    this.codechange =this.list[index].code;
+                    this.mymaskstyle = true;
+                },
+                // 删除按钮
+                mydelbtn(index) {
+                    let delname=this.list[index].name;
+                    console.log("已删除的人名："+this.list[index].name);
+                    this.list.splice(index, 1);
+                    // 查找库obj中是否删除干净
+                    for(let i=0;i<obj.length;i++){
+                        if(obj[i].name.includes(delname)){
+                            obj.splice(i,1);
+                        }
+                    }
+                },
+                // 取消按钮
+                mycancelbtn() {
+                    this.mymaskstyle = false;
+                },
+                // 保存按钮
+                mysavebtn(index) {
+                    this.list[index].name = this.namechange;
+                    this.list[index].address = this.addresschange;
+                    this.list[index].code = this.codechange;
+                    this.mymaskstyle = false;
+                },
+
+                // 排序
+                myarrow() {
+
+                    if (this.sorted) {
+                        this.imgs = "img/arrow-up.png";
+                        this.list = this.list.sort(function(a,b){
+                            return parseInt(a.data) -parseInt(b.data);
+                        });
+
+                    } else{
+                        this.imgs = "img/arrow-down.png";
+                        this.list = this.list.sort(function(a,b){
+                            return  parseInt(b.data)-parseInt(a.data);
+                        });
+                    }
+                    // this.sorted++;
+                    this.sorted = !this.sorted;
+                },
+
+                // 搜索
+                searchbtn() {
+                    this.newobj = [];
+                    for (let i = 0; i < obj.length; i++) {
+                        if (obj[i].name.includes(this.message)) {
+                            this.newobj.push(obj[i]);
+                        }
+                    }
+                    if(this.newobj){
+                        this.list = this.newobj;
+                    }else{
+                        this.list = obj;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

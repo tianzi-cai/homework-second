@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>平滑效果</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            position: absolute;
+            top: 20px;
+            left: 200px;
+        }
+        .fade-enter-active,
+        .fade-leave-active{
+            transition: all 1s;
+        }
+
+        .fade-enter{
+            opacity: 0;
+        }
+        .fade-leave-to{
+            opacity: 0;
+        }
+        .first{
+            width: 200px;
+            height: 200px;
+            background-color: brown;
+        }
+        .second{
+            width: 200px;
+            height: 200px;
+            background-color: rgb(39, 42, 224);
+        }
+        .third{
+            width: 200px;
+            height: 200px;
+            background-color: rgb(62, 218, 23);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <transition name="fade">
+            <div v-if="show" @click="show=!show" key="first" class="first animate__animated animate__fadeInRight animate__pulse"></div>
+            <div v-else @click="show=!show" key="second" class="second animate__animated animate__fadeInRight animate__pulse"></div>
+        </transition>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                show:true
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

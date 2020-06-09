@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>段子列表</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            /* box-sizing: border-box; */
+        }
+        .wrapper{
+            width: 400px;
+            margin: 0 auto;
+            height: 100%;
+            box-shadow: 0 0 20px 1px rgb(204, 204, 204);
+        }
+        .inner{
+            padding: 10px 10px;
+            margin: 10px 10px;
+            border: 1px solid  rgb(243, 243, 243);
+            position: relative;
+        }
+        .header{
+            float: left;
+            width: 35px;
+            height: 35px;
+        }
+        .text{
+            font-size: 12px;
+            position: absolute;
+            left: 55px;
+            top: 10px;
+        }
+        .name{
+            font-size: 10px;
+            position: absolute;
+            left: 55px;
+            top: 30px;
+            color: rgb(124, 124, 124);
+
+        }
+        .images{
+            margin-top: 40px;
+            margin-left: 10px;
+            width: 310px;
+        }
+        .passtime{
+            font-size: 10px;
+            margin-left: 45px;
+            margin-top: 5px;
+            color: rgb(124, 124, 124);
+        }
+        .up{
+            position: absolute;
+            right: 55px;
+            bottom: 10px;
+            font-size: 10px;
+            color: black;
+        }
+        .down{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 10px;
+            color: rgb(124, 124, 124);
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inner" v-for="item in message">
+            <img :src="item.header" class="header" alt="">
+            <div class="text">{{item.text}}</div>
+            <div class="name">{{item.name}}</div>
+            <img :src="item.images" class="images" alt="">
+            <div class="passtime">{{item.passtime}}</div>
+            <div class="up">点赞{{item.up}}</div>
+            <div class="down">不点赞{{item.down}}</div>
+        </div>
+    </div>
+
+    <script>
+        var wrapper = new Vue({
+            el:".wrapper",
+            data:{
+                message:{}
+            },
+            created(){
+                axios.get('https://api.apiopen.top/getJoke?page=1&count=10&type=image')
+                .then(function (response) {
+                    wrapper.message = response.data.result;
+                });
+            }
+        });
+
+
+    </script>
+    
+</body>
+</html>

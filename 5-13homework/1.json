@@ -1,0 +1,60 @@
+{
+    "data": {
+        "yesterday": {
+            "date": "12日星期二",
+            "high": "高温 27℃",
+            "fx": "西风",
+            "low": "低温 18℃",
+            "fl": "<![CDATA[3级]]>",
+            "type": "晴"
+        },
+        "city": "苏州",
+        "aqi": "58",
+        "forecast": [
+            {
+                "date": "13日星期三",
+                "high": "高温 27℃",
+                "fengli": "<![CDATA[3级]]>",
+                "low": "低温 17℃",
+                "fengxiang": "东南风",
+                "type": "多云"
+            },
+            {
+                "date": "14日星期四",
+                "high": "高温 23℃",
+                "fengli": "<![CDATA[4级]]>",
+                "low": "低温 20℃",
+                "fengxiang": "东南风",
+                "type": "中雨"
+            },
+            {
+                "date": "15日星期五",
+                "high": "高温 25℃",
+                "fengli": "<![CDATA[2级]]>",
+                "low": "低温 20℃",
+                "fengxiang": "西南风",
+                "type": "小雨"
+            },
+            {
+                "date": "16日星期六",
+                "high": "高温 31℃",
+                "fengli": "<![CDATA[2级]]>",
+                "low": "低温 23℃",
+                "fengxiang": "西南风",
+                "type": "小雨"
+            },
+            {
+                "date": "17日星期天",
+                "high": "高温 29℃",
+                "fengli": "<![CDATA[2级]]>",
+                "low": "低温 22℃",
+                "fengxiang": "西南风",
+                "type": "多云"
+            }
+        ],
+        "ganmao": "感冒易发期，外出请适当调整衣物，注意补充水分。",
+        "wendu": "25"
+    },
+    "status": 1000,
+    "desc": "OK"
+}

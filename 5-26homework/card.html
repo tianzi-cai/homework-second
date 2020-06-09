@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名片</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            /* box-sizing: border-box; */
+        }
+        .wrapper{
+            width: 400px;
+            margin: 0 auto;
+            display: flex;
+            overflow: hidden;
+        }
+        #app {
+            width: 400px;
+            height: 450px;
+            margin: 0 auto;
+            margin-top: 30px;
+            padding-bottom: 50px;
+            border-radius: 15px;
+            /* transform: translateX(-400px); */
+            background-color: rgb(133, 39, 39);
+        }
+        .imgs{
+            height: 260px;
+            background-color: brown;
+            overflow: hidden;
+            border-radius: 15px 15px 0 0;
+
+        }
+        .imgs img{
+            border-radius: 15px 15px 0 0;
+            width: 400px;
+        }
+        .content{
+            padding: 15px 30px;
+        }
+        .name{
+            font-size: 24px;
+            font-weight: 600;
+            color: rgb(90, 90, 90);
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgb(216, 216, 216);
+        }
+        .content p{
+            padding-top: 5px;
+            color: white;
+        }
+        .content p .position{
+            color: rgb(145, 145, 145);
+            font-size: 14px;
+            font-weight: 400;
+            color: white;
+
+        }
+        .content p span{
+            font-size: 16px;
+            font-weight: 600;
+            color: rgb(90, 90, 90);
+            color: white;
+
+
+        }
+        .phone,.email,.company{
+            font-size: 14px;
+            color: rgb(145, 145, 145);
+        }
+        .phone{
+            font-size: 24px;
+            font-weight: 600;
+            color: rgb(90, 90, 90);
+            padding-top: 20px;
+        }
+        .btn{
+            cursor: pointer;
+            /* background-color: rgb(77, 133, 255); */
+            background-color: rgb(255, 75, 43);
+            border: none;
+            color: white;
+            width: 150px;
+            height: 40px;
+            border-radius: 50px;
+            margin-top: 8px;
+            margin-left: 120px;
+            outline: none;
+        }
+        .btn:hover{
+            background-color: white;
+            color: rgb(255, 75, 43);
+            margin-top: 7px;
+            font-weight: 600;
+        }
+        .code img{
+            position: absolute;
+            top: 335px;
+            left: 290px;
+            width: 65px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <person-component v-for="(item,index) in list" :index="index" :name="item.name"
+        :position="item.position" :company="item.company"
+        :phone="item.phone" :email="item.email" :img="item.img"
+        :mystyle="mystyle" @changemystyle="changemystyle(index)"></person-component>
+    </div>
+
+    <script>
+        // 名片信息
+        var person = [
+            {
+                img:"img/tangsan.jpg",
+                name: "唐三",
+                position: "千手修罗",
+                company:"斗罗大陆有限公司",
+                phone:"13388888801",
+                email:"tangsan@163.com"
+            },
+            {
+                img:"img/daimubai.jpg",
+                name: "戴沐白",
+                position: "邪眸白虎",
+                company:"斗罗大陆有限公司",
+                phone:"13388888802",
+                email:"daimubai@163.com"
+
+            },
+            {
+                img:"img/ningrongrong.jpg",
+                name: "宁荣荣",
+                position: "九宝琉璃",
+                company:"斗罗大陆有限公司",
+                phone:"13388888803",
+                email:"ningrongrong@163.com"
+
+            },
+            {
+                img:"img/xiaowu.jpg",
+                name: "小舞",
+                position: "柔骨魅兔",
+                company:"斗罗大陆有限公司",
+                phone:"13388888804",
+                email:"xiaowu@163.com"
+
+            }
+        ];
+        
+        // 名片组件
+        Vue.component("person-component",{
+            props:{
+                name:{
+                    type:String,
+                    required:true,
+                },
+                company:{
+                    type:String,
+                    required:true,
+                },
+                position:String,
+                phone:{
+                    type:String,
+                    validator(value){
+                        if(!(/^1[3456789]\d{9}$/.test(value))){
+                            alert("手机号码有误，请重填");
+                            return false;
+                        }
+                        return true;
+                    }
+                },
+                email:{
+                    type:String,
+                    validator(value){
+                        if(!(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value))){
+                            alert("邮箱有误，请重填");
+                            return false;
+                        }
+                        return true;
+                    }
+                },
+                img:{
+                    type:String
+                },
+                mystyle:{},
+                index:{}
+            },
+            template:`
+            <div id="app" :style="mystyle">
+                <div class="imgs">
+                    <img :src="img">
+                </div>
+                <div class="content">
+                    <p class="name">{{name}} <span class="position">【{{position}}】</span></p>
+                    <p class="email"><span>邮箱:</span> {{email}}</p>
+                    <p class="company"><span>公司:</span> {{company}}</p>
+                    <p class="phone"><span>电话:</span> {{phone}}</p>
+                </div>
+                <div class="code">
+                    <img src="img/code.png">
+                </div>
+                <button class="btn" @click="myClick(index)">切换下一张名片</button>
+            </div>
+            `,
+            methods:{
+                myClick(index){
+                    this.$emit("changemystyle",index);
+                }
+            }
+        });
+        
+        var wrapper = new Vue({
+            el: ".wrapper",
+            data: {
+                list:person,
+                // mystyle:"transform: translateX("+(-400*0)+"px)"
+                mystyle:{
+                    transform: "translateX("+(-400*0)+"px)",
+                    transition: "all 2s"
+                }
+
+            },
+            methods:{
+                changemystyle(index){
+                    index++;
+                    if(index==4){
+                        index=0;
+                    }
+                    // this.mystyle="transform: translateX("+(-400*index)+"px)"
+                    this.mystyle.transform="translateX("+(-400*index)+"px)";
+                    this.mystyle.transition="all 1s";
+                }
+
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

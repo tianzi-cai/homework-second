@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑动轮播</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .wrapper{
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+
+        }
+        .divwrapper{
+            display: flex;
+            width: 800px;
+            height: 300px;
+        }
+        .div1,.div2,.div3,.div4,.div5{
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 300px;
+            color: white;
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+        }
+        .div1{
+            background-color: blueviolet;
+        }
+        .div2{
+            background-color:brown;
+        }
+        .div3{
+            background-color: chocolate;
+        }
+        .div4{
+            background-color: cornflowerblue;
+        }
+        .div5{
+            background-color: darkblue;
+        }
+        /* 左右图片 */
+        .left{
+            width: 40px;
+            opacity: 0.4;
+            position: absolute;
+            top: 130px;
+            left: 0;
+        }
+        .right{
+            width: 40px;
+            opacity: 0.4;
+            position: absolute;
+            top: 130px;
+            left: 760px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 5张div图片位置 -->
+        <div class="divwrapper" :style="slidestyle">
+            <div class="div1">第一页</div>
+            <div class="div2">第二页</div>
+            <div class="div3">第三页</div>
+            <div class="div4">第四页</div>
+            <div class="div5">第五页</div>
+        </div>
+        <!-- :style="slidestyle" -->
+        <!-- 左右键头 -->
+        <div class="imgwrapper">
+            <img src="arrow-left.png" @click="myclickleft" class="left">
+            <img src="arrow-right.png" @click="myclickright" class="right">
+        </div>
+    </div>
+
+    <script>
+        var wrapper = new Vue({
+            el:".wrapper",
+            data:{
+                slidestyle:{},
+                x:0
+            },
+            methods:{
+                myclickleft(){
+                    this.x --;
+                    if(this.x==-1){
+                        this.x=0;
+                    }
+                    this.slidestyle={
+                        transform: "translateX("+(-this.x*800)+"px)",
+                        transition: "all 2s"
+                    }
+                },
+                myclickright(){
+                    this.x ++;
+                    if(this.x==5){
+                        this.x=4;
+                    }
+                    this.slidestyle={
+                        transform: "translateX("+(-this.x*800)+"px)",
+                        transition: "all 2s"
+                    }
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

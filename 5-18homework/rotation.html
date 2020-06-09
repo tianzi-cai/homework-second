@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .wrapper{
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+        }
+        .div1,.div2,.div3,.div4,.div5{
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            line-height: 300px;
+            color: white;
+            
+            /* transform: translateX(100px);
+            transition: all 5s; */
+        }
+        .div1{
+            background-color: blueviolet;
+        }
+        .div2{
+            background-color:brown;
+        }
+        .div3{
+            background-color: chocolate;
+        }
+        .div4{
+            background-color: cornflowerblue;
+        }
+        .div5{
+            background-color: darkblue;
+        }
+
+        /* 圆点设置 */
+        .spanwrapper{
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .span1{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        .addspan1{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        /* 左右键头 */
+        .imgwrapper{
+            height: 300px;
+            opacity: 0.4;
+            display: flex;
+            flex-shrink: 0;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 5张div图片位置 -->
+        <div class="div1" v-if="index2==1" >第一页</div>
+        <div class="div2" v-if="index2==2" >第二页</div>
+        <div class="div2" v-if="index2==2" >第二页</div>
+        <div class="div3" v-if="index2==3" >第三页</div>
+        <div class="div4" v-if="index2==4" >第四页</div>
+        <div class="div5" v-if="index2==5" >第五页</div>
+        <!-- :style="slidestyle" -->
+        <!-- 圆点 -->
+        <!-- <div class="spanwrapper">
+            <span v-for="(item,index) in list" :class="isactive==index?'addspan1':'span1'" @click="myclick(item,index)">{{item}}</span>
+        </div> -->
+        <!-- 左右键头 -->
+        <div class="imgwrapper">
+            <img src="arrow-left.png" @click="myclickleft" >
+            <img src="arrow-right.png" @click="myclickright" >
+        </div>
+    </div>
+
+    <script>
+        var wrapper = new Vue({
+            el:".wrapper",
+            data:{
+                index2:1,
+                // slidestyle:{
+                //     translate:"translateX('100px')",
+                //     transition:"all 5s"
+                // }
+            },
+            methods:{
+                myclickleft(){
+                    if(this.index2>1){
+                        this.index2--;
+                    }
+                },
+                myclickright(){
+                    if(this.index2<5){
+                        this.index2++;
+                    }
+
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

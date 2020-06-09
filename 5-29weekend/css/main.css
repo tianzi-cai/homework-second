@@ -1,0 +1,137 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    width: 1000px;
+    margin: 20px auto;
+    height: 600px;
+    border: 1px solid rgb(221, 221, 221);
+    display: flex;
+}
+
+h4 {
+    margin-top: 10px;
+    text-align: center;
+    color: rgb(116, 116, 116);
+}
+
+.order {
+    width: 40%;
+    border-right: 1px solid rgb(221, 221, 221);
+    overflow: auto;
+    height: 600px;
+}
+
+.menu {
+    width: 60%;
+    text-align: center;
+}
+
+.header,
+.now-order {
+    margin: 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.now-order {
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding: 10px 0;
+
+}
+
+.confirm-order,
+.hang,
+.paid,
+.cancel,
+.now-order span {
+    width: 25%;
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+.mybottomstyle {
+    border-bottom: 2px solid rgb(0, 162, 255);
+}
+
+.del {
+    color: rgb(0, 162, 255);
+}
+
+
+/* 产品css */
+.often-food,
+.main-menu {
+    width: 50%;
+    text-align: center;
+    padding-bottom: 3px;
+}
+.oftenFood{
+    margin: 0 20px;
+    display: flex;
+}
+
+.drink,.mainfood,.snack{
+    width: 33%;
+}
+h3{
+    color: rgb(0, 162, 255);
+}
+img{
+    width: 150px;
+}
+.proimgs{
+    margin-top: 10px;
+    height: 450px;
+    overflow: auto;
+}
+
+.coco{
+    margin-top: 10px;
+    height: 230px;
+    width: 150px;
+    border-bottom: 1px solid rgb(255, 94, 94);
+}
+.coco p{
+    font-size: 14px;
+}
+.addbtn{
+    display: inline-block;
+    border: none;
+    background-color: rgb(255, 94, 94);
+    cursor: pointer;
+    color: white;
+    width: 70px;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 8px;
+    outline: none;
+}
+.imgp{
+    width: 150px;
+    height:170px;
+    line-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 过渡 */
+.slide-enter-active,.slide-leave-active{
+    transition: all 1s;
+    position: absolute;
+}
+
+.slide-enter{
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+.slide-leave-to{
+    opacity: 0;
+    transform: translateX(-100px);
+}

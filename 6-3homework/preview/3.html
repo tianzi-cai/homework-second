@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓氏</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            color: rgb(0, 71, 36);
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .line{
+            margin: 0 20px;
+            padding: 15px; 
+            border-bottom: 1px solid rgb(224, 224, 224);
+        }
+        .xing{
+            margin: 20px;
+            font-size: 20px;
+            text-align: center;
+            color: rgb(0, 71, 36);
+        }
+        .content p,.content b{
+            margin: 20px 20px;
+        }
+        .load{
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            background-color: rgb(0, 71, 36);
+            color: white;
+            word-break: break-all;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+
+    <script>
+
+        const NameList ={
+            props:["message"],
+            template:`
+                <div>
+                    <p class="line">
+                        <router-link to="/detail/张">张</router-link>
+                    </p>
+                    <p class="line">
+                        <router-link to="/detail/金">金</router-link>
+                    </p>
+                    <p class="line">
+                        <router-link to="/detail/蔡">蔡</router-link>
+                    </p>
+                    <p class="line">
+                        <router-link to="/detail/刘">刘</router-link>
+                    </p>
+                    <p class="line">
+                        <router-link to="/detail/黄">黄</router-link>
+                    </p>
+                    <p class="line">
+                        <router-link to="/detail/王">王</router-link>
+                    </p>
+                    <p class="line">
+                        <router-link to="/detail/杨">杨</router-link>
+                    </p>
+                </div>
+            `
+        };
+
+        const NameDetail ={
+            data(){
+                return {
+                    message:{},
+                    load:true
+                }
+            },
+            template:`
+            <div>
+                <div v-show="load" class="load">加载中</div>
+                <div class="xing">姓氏：{{message.xing}}</div>
+                <div v-html="message.content" class="content"></div>
+            </div>
+            `,
+
+            created() {
+                let that =this;
+                let url = "http://api.tianapi.com/txapi/surname/index?key=ac11ec205b904c2aed00686ec712c493&xing="+this.$route.params.id+"";
+                
+                axios.get(url)
+                    .then(function (response) {
+                        that.load = false;
+                        that.message = response.data.newslist[0];
+                    });
+            }
+
+        };
+
+        const routes =[
+            {
+                path:"/",component:NameList
+            },
+            {
+                path:"/detail/:id",component:NameDetail
+            }
+        ];
+
+        const router = new VueRouter({
+            routes:routes
+        })
+
+
+        var app = new Vue({
+            el: "#app",
+            router:router
+        });
+    </script>
+</body>
+
+</html>

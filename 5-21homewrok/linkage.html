@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>省市区三级联动</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 省 -->
+        <select v-model="prv" @change="prvchange">
+            <option value="" disabled>请选择省份</option>
+            <option :value="item" v-for="item in list">{{item.province}}</option>
+        </select>
+
+        <!-- 市 -->
+        <select v-model="cty" @change="ctychange">
+            <option value="" disabled>请选择城市</option>
+            <option :value="item" v-for="item in city">{{item.cityname}}</option>
+        </select>
+
+        <!-- 区 -->
+        <select v-model="aea">
+            <option value="" disabled>请选择区域</option>
+            <option :value="item" v-for="item in area">{{item}}</option>
+        </select>
+
+        <p>
+            {{prv.province}}-{{cty.cityname}}-{{aea}}
+        </p>
+
+    </div>
+
+    <script>
+        let obj = [
+            // 江苏省
+            {
+                province: "江苏省",
+                city: [
+                    {
+                        cityname: "南京市",
+                        area: ["玄武区", "秦淮区"]
+                    },
+                    {
+                        cityname: "苏州市",
+                        area: ["吴中区", "姑苏区"]
+                    }
+                ]
+            },
+            // 浙江省
+            {
+                province: "浙江省",
+                city: [
+                    {
+                        cityname: "杭州市",
+                        area: ["上城区", "江干区"]
+                    },
+                    {
+                        cityname: "温州市",
+                        area: ["鹿城区", "龙湾区"]
+                    }
+                ]
+            },
+        ];
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                prv: "",
+                cty: "",
+                aea: "",
+                list: obj,
+                city: [],
+                area: []
+            },
+
+            methods: {
+                prvchange() {
+                    this.city = this.prv.city;
+                    this.cty =this.city[0];
+
+                    this.area =this.city[0].area;
+                    this.aea =this.area[0];
+                },
+                ctychange() {
+                    this.area = this.cty.area;
+                    this.aea= this.area[0];
+
+                }
+            }
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>

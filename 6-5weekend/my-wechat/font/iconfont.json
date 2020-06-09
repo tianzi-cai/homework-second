@@ -1,0 +1,121 @@
+{
+  "id": "1865418",
+  "name": "微信",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11372782",
+      "name": "相机",
+      "font_class": "xiangji",
+      "unicode": "e8c7",
+      "unicode_decimal": 59591
+    },
+    {
+      "icon_id": "11079195",
+      "name": "向右",
+      "font_class": "xiangyou",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "1301356",
+      "name": "表情",
+      "font_class": "biaoqing1",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "900289",
+      "name": "其他",
+      "font_class": "qita",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "913704",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "5876380",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "12097776",
+      "name": "语音",
+      "font_class": "yuyin",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "287175",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "936874",
+      "name": "80%电量",
+      "font_class": "80dianliang",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "1409622",
+      "name": "23通讯录",
+      "font_class": "tongxunlu1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "9572494",
+      "name": "信号",
+      "font_class": "IOTtubiao_huabanfuben",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "1149395",
+      "name": "通讯录",
+      "font_class": "tongxunlu",
+      "unicode": "e6c2",
+      "unicode_decimal": 59074
+    },
+    {
+      "icon_id": "1486837",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "2075250",
+      "name": "发现",
+      "font_class": "faxian",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "5334202",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "8219238",
+      "name": "侧边栏_聊天列表",
+      "font_class": "cebianlan_liaotianliebiao",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    }
+  ]
+}

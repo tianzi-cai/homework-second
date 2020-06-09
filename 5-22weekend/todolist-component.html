@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作事项(组件)</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            /* box-sizing: border-box; */
+        }
+
+        .wrapper {
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 30px;
+            height: 100%;
+            box-shadow: 0 0 20px 1px rgb(204, 204, 204);
+            padding-bottom: 50px;
+        }
+
+        .app {
+            width: 400px;
+            height: 80px;
+            padding: 20px 0;
+            background-image: linear-gradient(90deg, rgb(255, 143, 91), rgb(245, 242, 45));
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .app p {
+            color: white;
+            width: 200px;
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .addlistvalue {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            border: none;
+            outline: none;
+            width: 200px;
+            height: 20px;
+            background-color: rgb(255, 219, 152);
+            padding-left: 10px;
+        }
+
+        .btn {
+            border: none;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            position: absolute;
+            right: 25px;
+            bottom: -25px;
+            outline: none;
+            background-color: rgb(255, 143, 91);
+            color: white;
+            /* background-color: white;
+            color: rgb(255, 143, 91); */
+            /* box-shadow: 0 0 20px 1px rgba(68, 68, 7, 0.3); */
+            cursor: pointer;
+
+        }
+
+        .btn:hover {
+            background-color: white;
+            color: orange;
+            box-shadow: 0 0 20px 1px rgba(68, 68, 7, 0.5);
+            /* background-color: rgb(255, 143, 91);
+            color: white; */
+        }
+
+        .todolist,
+        .finished {
+            width: 340px;
+            overflow: hidden;
+            white-space: wrap;
+            text-overflow: ellipsis;
+            padding: 10px 30px;
+            color: rgb(107, 107, 107);
+            border-bottom: 1px dashed rgb(230, 230, 230);
+            display: flex;
+            position: relative;
+        }
+
+        .unfinshed,
+        .finishedfont {
+            text-align: center;
+            /* background-image: linear-gradient(90deg,rgb(255, 143, 91),rgb(245, 242, 45)); */
+            /* color: rgb(95, 95, 95); */
+            color: rgb(107, 107, 107);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 按钮样式 */
+        .btn-finished {
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            border: none;
+            background-color: rgb(255, 143, 91);
+            color: white;
+            border-radius: 5px;
+            position: absolute;
+            right: 75px;
+            cursor: pointer;
+        }
+
+        .btn-del,
+        .btn-del2 {
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            border: none;
+            background-color: rgb(245, 242, 45);
+            color: rgb(133, 133, 133);
+            border-radius: 5px;
+            margin-right: 20px;
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+        }
+
+        .btn-del2 {
+            background-color: rgb(212, 212, 212);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <needwork v-model="message" @change-myclick="myclick"></needwork>
+        <todolist-component :todolist="todoList" @change-myuncomplete="myuncomplete" @change-mydel="mydel"></todolist-component>
+        <finished-component :todolist="todoList" :finished="finished"  @change-mydel2="mydel2"></finished-component>
+    </div>
+
+    <script>
+        // input列表组件
+        Vue.component("needwork", {
+            props: ["message", "value", "todolist", "finished"],
+            template: `
+            <div class="app">
+                <p>工 作 事 项</p>
+                <input type="text" class="addlistvalue" placeholder="此处输入需完成事项" :value="value" @input="$emit('input',$event.target.value)">
+                <button @click="myclick" class="btn">添加</button>
+            </div>
+            `,
+            methods: {
+                myclick(){
+                   this.$emit("change-myclick");
+                }
+            }
+        });
+
+        // 待完成组件
+        Vue.component("todolist-component",{
+            props: ["message", "value", "todolist","index","finished"],
+            template:`
+            <div>
+                <p class="unfinshed">待完成</p>
+                <div class="todolist" v-for="(item,index) in todolist">
+                    {{item}}
+                    <button class="btn-finished" @click="myuncomplete(index)">完成</button>
+                    <button class="btn-del" @click="mydel(index)">删除</button>
+                </div>
+            </div>
+            `,
+            methods:{
+                myuncomplete(index){
+                   this.$emit("change-myuncomplete",index);
+                },
+                mydel(index){
+                   this.$emit("change-mydel",index);
+                }
+            }
+        });
+
+        // 已完成组件
+        Vue.component("finished-component",{
+            props: ["message", "value", "todolist","index","finished"],
+            template:`
+            <div>
+                <p class="finishedfont">已完成</p>
+                <div class="finished" v-for="(item,index) in finished">
+                    {{item}}
+                    <button class="btn-del2" @click="mydel2(index)">删除</button>
+                </div>
+            </div>
+            `,
+            methods:{
+                mydel2(index){
+                   this.$emit("change-mydel2",index);
+                }
+            }
+        });
+
+        var wrapper = new Vue({
+            el: ".wrapper",
+            data: {
+                message: "",
+                todoList: [],
+                finished: []
+            },
+
+            methods: {
+
+                myclick() {
+
+                    if (this.message.trim()) {
+
+                        if (this.todoList.indexOf(this.message.trim()) > -1) {
+                            alert("已添加过该事项哦~~~~");
+                        } else {
+                            // 添加进dom
+                            this.todoList.push(this.message);
+
+                            // 添加进本地缓存
+                            localStorage.setItem('todoList', JSON.stringify(this.todoList));
+                        }
+
+                    } else {
+                        alert("事项为空哦~~~");
+                    }
+
+                    // 清空
+                    this.message = "";
+                },
+
+                myuncomplete(index) {
+                    // dom中的操作
+                    this.finished.push(this.todoList[index]);
+                    this.todoList.splice(index, 1);
+
+                    // 缓存中的操作添加到已完成
+                    localStorage.setItem('finished', JSON.stringify(this.finished));
+                    // 在缓存中删除
+                    localStorage.setItem('todoList', JSON.stringify(this.todoList));
+                },
+
+                mydel(index) {
+                    this.todoList.splice(index, 1);
+                    localStorage.setItem('todoList', JSON.stringify(this.todoList));
+                },
+
+                mydel2(index) {
+                    this.finished.splice(index, 1);
+                    localStorage.setItem('finished', JSON.stringify(this.finished));
+                }
+
+            },
+
+            mounted() {
+                // 从缓存中读取
+                if (localStorage.getItem('todoList')) {
+                    this.todoList = JSON.parse(localStorage.getItem('todoList'));
+                }
+                if (localStorage.getItem('finished')) {
+                    this.finished = JSON.parse(localStorage.getItem('finished'));
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算题</title>
+</head>
+
+<body>
+    <script>
+        // 1. 在二维平面上， 有一个机器人从原点(0, 0) 开始。 给出它的移动顺序， 判断这个机器人在完成移动后是否在(0, 0) 处结束。
+
+        // 移动顺序由字符串表示。 字符 move[
+        //     i] 表示其第 i 次移动。 机器人的有效动作有 R（ 右）， L（ 左）， U（ 上） 和 D（ 下）。 如果机器人在完成所有动作后返回原点， 则返回 true。 否则， 返回 false。
+
+        // 注意： 机器人“ 面朝” 的方向无关紧要。“ R” 将始终使机器人向右移动一次，“ L” 将始终向左移动等。 此外， 假设每次移动机器人的移动幅度相同。
+
+        // 示例 1:
+        //     输入: "UD"
+        // 输出: true
+        // 解释： 机器人向上移动一次， 然后向下移动一次。 所有动作都具有相同的幅度， 因此它最终回到它开始的原点。 因此， 我们返回 true。
+
+        // 示例 2:
+        //     输入: "LL"
+        // 输出: false
+        // 解释： 机器人向左移动两次。 它最终位于原点的左侧， 距原点有两次“ 移动” 的距离。 我们返回 false， 因为它在移动结束时没有返回原点。
+
+        console.log("=============第一题==================");
+
+        function move(robot) {
+            let arr = robot.trim().split('');
+
+            let left = 0,
+                top = 0;
+
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] == "L" || arr[i] == "l") {
+                    left += 1;
+                } else if (arr[i] == "R" || arr[i] == "r") {
+                    left -= 1;
+                } else if (arr[i] == "U" || arr[i] == "u") {
+                    top += 1;
+                } else if (arr[i] == "D" || arr[i] == "d") {
+                    top -= 1;
+                } else {
+                    alert("移动步数有误，请重新输入");
+                    return
+                }
+            }
+
+            if (left == 0 && top == 0) {
+                console.log("机器人回到了原点");
+                return true;
+            } else {
+                console.log("机器人未回到原点");
+                return false;
+            }
+
+        }
+
+        console.log(move("UD"));
+        console.log(move("LL"));
+
+        // 2. 实现一个算法， 确定一个字符串 s 的所有字符是否全都不同。
+
+        // 示例 1：
+        // 输入: s = "leetcode"
+        // 输出: false
+
+        // 示例 2：
+        // 输入: s = "abc"
+        // 输出: true
+        // 限制：
+
+        // 0 <= len(s) <= 100
+        // 如果你不使用额外的数据结构， 会很加分。
+
+        console.log("=============第二题==================");
+
+        function repeatFun(str){
+            let arr = str.trim().split('');
+            
+            for(let i=0;i<arr.length;i++){
+                for(let j=i+1;j<arr.length;j++){
+                    if(arr[i]==arr[j]){
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+
+        }
+
+        console.log(repeatFun("leetcode"));
+        console.log(repeatFun("abc"));
+
+
+    </script>
+</body>
+
+</html>

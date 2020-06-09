@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟获取热搜词</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>
+            <input type="text" placeholder="请输入关键词" v-model="msg">
+        </p>
+
+        <div>
+            <!-- 热搜列表 -->
+            {{msg}}
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                msg:"",
+                timer:null
+            },
+
+            methods:{
+
+                // 延迟函数
+                debounce:function(timer,wait){
+                    if(this.timer!=null){
+                        clearTimeout(this.timer)
+                    }
+                    this.timer =setTimeout(timer,wait)
+                },
+                // 执行操作的函数
+                changemsg:function(){
+                    console.log(this.msg);
+                    console.log("去后台获取热搜词")
+                }
+
+            },
+
+            // 侦听文本框变化
+            watch:{
+                msg:function(){
+                    // 延迟1秒之后再提交文本框数据
+                    this.debounce(this.changemsg,1000);
+                }
+
+            }
+
+
+        });
+    </script>
+</body>
+</html>

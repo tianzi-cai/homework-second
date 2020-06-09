@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件切换</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+        #app{
+            margin-left: 200px;
+            width: 100px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        .button1{
+            position: absolute;
+            top: 120px;
+        }
+        .button2{
+            position: absolute;
+            top: 120px;
+            left: 50px;
+        }
+        .slide-enter-active,.slide-leave-active{
+            transition: all .5s;
+            position: absolute;
+        }
+
+        .slide-leave-to{
+            /* opacity: 0; */
+            transform: translateX(-100px);
+        }
+
+        .slide-enter{
+            /* opacity: 0; */
+            transform: translateX(100px);
+        }
+
+        .slide2-enter-active,.slide2-leave-active{
+            transition: all .5s;
+            position: absolute;
+        }
+
+        .slide2-leave-to{
+            /* opacity: 0; */
+            transform: translateX(100px);
+        }
+
+        .slide2-enter{
+            /* opacity: 0; */
+            transform: translateX(-100px);
+            
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <button @click="a" class="button1">上一页</button>
+        <button @click="b" class="button2">下一页</button>
+
+        <transition :name="transformName">
+            <my-component :is="componentName" style="margin-top: 10px;"></my-component>
+        </transition>
+    </div>
+
+    <script>
+        Vue.component("component1",{
+            template:"<div style='width: 100px; height: 100px; background-color: brown; color: white;'>我是组件A</div>"
+        });
+
+        Vue.component("component2",{
+            template:"<div style='width: 100px; height: 100px; background-color: orange; color: white;'>我是组件B</div>"
+            
+        });
+
+        Vue.component("component3",{
+            template:"<div style='width: 100px; height: 100px; background-color: blue; color: white;'>我是组件C</div>"
+            
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                transformName:"slide",
+                componentName:"component1",
+                index:1
+            },
+            methods:{
+                a(){
+                    this.transformName="slide2";
+                    this.index--;
+                    if(this.index==0){
+                        this.index=3;
+                    }
+                    this.componentName="component"+this.index;
+                },
+                b(){
+                    this.transformName="slide";
+                    this.index++;
+                    if(this.index==4){
+                        this.index=1;
+                    }
+                    this.componentName="component"+this.index;
+                }
+            }
+        });
+
+    </script>
+    
+</body>
+</html>

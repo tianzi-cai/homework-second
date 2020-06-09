@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html,body,.wrapper,.imgwrapper{
+            width: 100%;
+            height: 100%;
+        }
+        .imgwrapper{
+            position: relative;
+        }
+        .heart{
+            position: absolute;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="imgwrapper" @click="myClick">
+            <img  v-for="(item,index) in imgList"  class="heart" src="1.png" :style="mystyle[index]">
+        </div>
+    </div>
+
+    <script>
+        var wrapper = new Vue({
+            el:".wrapper",
+            data:{
+                imgList:[],
+                mystyle:[],
+            },
+
+            methods:{
+
+                myClick(event){
+                    let obj ={
+                        left:(event.clientX-32) +"px",
+                        top:(event.clientY-32) +"px",
+                        transform:"rotate("+Math.floor(Math.random()*60-30)+"deg)",
+                        opacity:1
+                    }
+                    // push样式和爱心图片
+                    this.mystyle.push(obj);
+                    this.imgList.push(obj);
+
+                    // 设置透明度和方向
+                    let timer = setInterval(function(){
+                        obj.opacity -=0.02;
+                        obj.transform = obj.transform+ "translateY(-10px)"
+                        
+                        if(obj.opacity<0){
+                            // 清定时
+                            clearInterval(timer);
+                            // 清缓存
+                            wrapper.imgList.splice(0,1);
+                            wrapper.mystyle.splice(0,1);
+                        }
+                    },60);
+                }
+
+            }
+
+        });
+
+    
+
+    </script>
+    
+</body>
+</html>

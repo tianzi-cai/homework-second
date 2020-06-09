@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>平滑效果</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        button{
+            position: absolute;
+        }
+        .fade-enter-active,
+        .fade-leave-active{
+            transition: all 1s;
+        }
+
+        .fade-enter{
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        .fade-leave-to{
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <transition name="fade">
+            <button v-if="show" @click="show=false" key="on">on</button>
+            <button v-else @click="show=true" key="off">off</button>
+        </transition>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                show:true
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

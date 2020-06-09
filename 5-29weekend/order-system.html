@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点餐系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- 订单栏 -->
+        <div class="order">
+            <h4>订单栏</h4>
+            <div class="header">
+                <p class="confirm-order" :class="{mybottomstyle:index==1}" @click="orderclick(1)">当前订单</p>
+                <p class="hang" :class="{mybottomstyle:index==2}" @click="orderclick(2)">挂单中</p>
+                <p class="paid" :class="{mybottomstyle:index==3}" @click="orderclick(3)">已付款</p>
+                <p class="cancel" :class="{mybottomstyle:index==4}" @click="orderclick(4)">取消的订单</p>
+            </div>
+            
+            <transition name="slide">
+                <my-component :is="componentName" :orderlist="orderList" @change-mydel="mydel" @change-myminus="myminus"
+                    @change-myplus="myplus" @add="add"></my-component>
+            </transition>
+        </div>
+
+        <!-- 产品栏 -->
+        <div class="menu">
+            <h4>产品栏</h4>
+            <div class="header">
+                <p class="often-food" @click="productclick(1)" :class="{mybottomstyle:index2==1}">常点食品</p>
+                <p class="main-menu" @click="productclick(2)" :class="{mybottomstyle:index2==2}">主菜单</p>
+            </div>
+            <my-component :is="componentName1" @add="add"></my-component>
+        </div>
+
+    </div>
+
+    <script src="./js/main.js" type="module"></script>
+
+</body>
+
+</html>

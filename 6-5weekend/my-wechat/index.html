@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信</title>
+
+    <!-- vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- vue-router -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!-- 图标 -->
+    <link rel="stylesheet" href="font/iconfont.css">
+    <!-- index的css样式 -->
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+    <div id="app">
+        <div class="bottom">
+
+            <div class="label">
+                <div class="iconfont tab " @click="wechatclick(1)">
+                    <p class="icon" :class="{mybottomstyle:index==1}">&#xe60a;</p>
+                    <p class="font" :class="{mybottomstyle:index==1}">微信</p>
+                </div>
+    
+                <div class="iconfont tab" @click="wechatclick(2)">
+                    <p class="icon" :class="{mybottomstyle:index==2}">&#xe6c2;</p>
+                    <p class="font" :class="{mybottomstyle:index==2}">通讯录</p>
+                </div>
+    
+                <div class="iconfont tab" @click="wechatclick(3)">
+                    <p class="icon" :class="{mybottomstyle:index==3}">&#xe603;</p>
+                    <p class="font" :class="{mybottomstyle:index==3}">发现</p>
+                </div>
+    
+                <div class="iconfont tab" @click="wechatclick(4)">
+                    <p class="icon" :class="{mybottomstyle:index==4}">&#xe62d;</p>
+                    <p class="font" :class="{mybottomstyle:index==4}">我</p>
+                </div>
+            </div>
+      
+            <div class="virtualhome">
+                <div class="home"></div>
+            </div>
+        </div>
+        <!-- 组件 -->
+        <my-component :is="componentName"></my-component>
+
+        <!-- 路由 -->
+        <router-view></router-view>
+
+    </div>
+
+    <script src="./main.js" type="module"></script>
+</body>
+</html>

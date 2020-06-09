@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .wrapper{
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            /* background-color: darkgreen; */
+            position: relative;
+            cursor: pointer;
+        }
+        .div1,.div2,.div3,.div4,.div5{
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .div1{
+            background-color: blueviolet;
+        }
+        .div2{
+            background-color:brown;
+        }
+        .div3{
+            background-color: chocolate;
+        }
+        .div4{
+            background-color: cornflowerblue;
+        }
+        .div5{
+            background-color: darkblue;
+        }
+
+        /* 圆点设置 */
+        .spanwrapper{
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .span1{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        .addspan1{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        /* 左右键头 */
+        .imgwrapper{
+            height: 300px;
+            opacity: 0.4;
+            display: flex;
+            flex-shrink: 0;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper" v-on:mouseenter="mymouseenter" v-on:mouseleave="mymouseleave">
+        <!-- 5张div图片位置 -->
+        <div :class="message"></div>
+        <!-- 圆点 -->
+        <div class="spanwrapper">
+            <span v-for="(item,index) in list" :class="isactive==index?'addspan1':'span1'" @click="myclick(item,index)">{{item}}</span>
+        </div>
+        <!-- 左右键头 -->
+        <div class="imgwrapper">
+            <img src="arrow-left.png" @click="myclickleft" >
+            <img src="arrow-right.png" @click="myclickright" >
+        </div>
+    </div>
+
+    <script>
+        var timer;
+        var i=1;
+        var wrapper = new Vue({
+            el:".wrapper",
+            data:{
+                message:"div1",
+                list:["","","","",""],
+                isactive:0
+            },
+
+            methods:{
+                // 鼠标悬停，停止播放
+                mymouseenter(){
+                    clearInterval(timer);
+                },
+                mymouseleave(){
+                    
+                    timer = setInterval(function(){
+                        i++;
+                        if(i==6){
+                            i=1;
+                        }
+                        wrapper.message = "div"+i;
+                        wrapper.isactive =i-1;
+
+                    },1000);
+
+                },
+                // 左右键头的点击事件
+                myclickleft(){
+                    i -=1;
+                    if(i==0){
+                        i=5;
+                    }
+                    wrapper.message="div"+i;  
+                    wrapper.isactive =i-1;
+                },
+                myclickright(){
+                    i +=1;  
+                    if(i==6){
+                        i=1;
+                    }
+                    wrapper.message="div"+i;  
+                    wrapper.isactive =i-1;
+                }
+            },
+            // 圆点的点击事件
+            myclick(item,index){
+                for(let i=0;i<this.list.lenght;i++){
+                    this.list[i].preventDefault();
+                }
+                // item.default =true;
+                // console.log("你好");
+            },
+            
+            // 自动轮播
+            created(){
+
+                timer = setInterval(function(){
+                    i++;
+                    if(i==6){
+                        i=1;
+                    }
+                    wrapper.message = "div"+i;
+                    wrapper.isactive =i-1;
+
+                },1000);
+
+            }
+
+        });
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .heart{
+            position: absolute;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="imgwrapper" v-for="(item,index) in message" >
+            <img src="1.png" alt=""  class="heart" :style="mystyle[index]">
+        </div>
+    </div>
+
+    <script>
+        var wrapper = new Vue({
+            el:".wrapper",
+            data:{
+                message:[],
+                mystyle:[]
+            },
+
+            created(){
+                // 页面的click事件
+                window.onclick =function(e){
+                    let mouseX = e.clientX-32;
+                    let mouseY = e.clientY-32;
+                    let obj ={
+                        left:mouseX +"px",
+                        top:mouseY +"px",
+                        transform:"rotate("+Math.floor(Math.random()*60-30)+"deg)",
+                        opacity:1
+                    }
+                    // push样式和爱心图片
+                    wrapper.mystyle.push(obj);
+                    wrapper.message.push(1);
+
+                    // 设置透明度和方向
+                    let timer = setInterval(function(){
+                        obj.opacity -=0.02;
+                        obj.transform = obj.transform+ "translateY(-10px)"
+                        // 清缓存和定时
+                        if(obj.opacity<0){
+                            clearInterval(timer);
+                            wrapper.message.splice(0,1);
+                        }
+                    },60);
+                }
+            }
+        });
+
+    
+
+    </script>
+    
+</body>
+</html>

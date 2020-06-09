@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线问答</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <!-- 第一题，单选 -->
+        <div class="first">
+            <p>1、西游记的作者是谁？({{check}})</p>
+            <p>
+                <input type="radio" id="check1" value="A" v-model="check">
+                <label for="check1">A、盛吉萎</label>
+            </p>
+            <p>
+                <input type="radio" id="check2" value="B" v-model="check">
+                <label for="check2">B、钱红成</label>
+            </p>
+            <p>
+                <input type="radio" id="check3" value="C" v-model="check" >
+                <label for="check3">C、吴承恩</label>
+            </p>
+            <p>
+                <input type="radio" id="check4" value="D" v-model="check" >
+                <label for="check4">D、程屎江</label>
+            </p>
+        </div>
+        <!-- 第一题，多选 -->
+        <div class="first">
+            <p>2、钱老师的特点有几个？({{x}})</p>
+            <p>
+                <input type="checkbox" id="checkbox1" value="A" v-model="boxcheck" @change="mychangefun">
+                <label for="checkbox1">A、帅的一逼</label>
+            </p>
+            <p>
+                <input type="checkbox" id="checkbox2" value="B" v-model="boxcheck" @change="mychangefun">
+                <label for="checkbox2">B、高冷</label>
+            </p>
+            <p>
+                <input type="checkbox" id="checkbox3" value="C" v-model="boxcheck" @change="mychangefun">
+                <label for="checkbox3">C、发型不错</label>
+            </p>
+            <p>
+                <input type="checkbox" id="checkbox4" value="D" v-model="boxcheck" @change="mychangefun">
+                <label for="checkbox4">D、丑</label>
+            </p>
+        </div>
+
+        <button @click="update">提交</button>
+
+        <!-- <p>
+            问答总分：{{total}}
+        </p> -->
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                check:"",
+                boxcheck:[],
+                x:"",
+                total:0
+            },
+            methods:{
+                mychangefun(){
+                    this.x=this.boxcheck.sort().join("");
+
+                },
+
+                update(){
+                    // 第一题
+                    this.total=0;
+                    if(this.check=='C'){
+                        this.total +=4;
+                    }
+                    // 第二题
+                    this.fun();
+
+                    alert("问答总分："+this.total);
+                },
+
+                fun(){
+                    this.x=this.boxcheck.sort().join("");
+                    rightanswer=['A','B','C'];
+                    if(this.boxcheck.length>rightanswer.length){
+                        return;
+                    }
+
+                    if(this.boxcheck.length==rightanswer.length){
+                        if(this.x==rightanswer.join("")){
+                            console.log(rightanswer.join(""));
+                            this.total +=4;
+                        }
+                    }
+
+                    if(this.boxcheck.length<rightanswer.length){
+                        for(let i=0;i<this.boxcheck.length;i++){
+                            if(rightanswer.indexOf(this.boxcheck[i])<0){
+                                return;
+                            }
+                        }
+                        
+                        if(this.boxcheck.length>0){
+                            this.total +=2;
+                        }else{
+                            return
+                        }
+                    }
+                }
+
+
+            }
+        });
+    </script>
+    
+</body>
+</html>

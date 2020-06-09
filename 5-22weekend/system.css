@@ -1,0 +1,127 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.wrapper{
+    width: 1200px;
+    margin: 0 auto;
+}
+.header{
+    height: 100px;
+    background-color: rgb(242,242,242);
+    line-height: 100px;
+}
+.name{
+    margin-left: 30px;
+    margin-right: 20px;
+    color: rgb(109, 109, 109);
+}
+.inputtext{
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 1px solid rgb(230, 230, 230);
+}
+.btn{
+    height: 30px;
+    background-color: rgb(64, 158, 255);
+    border: none;
+    color: white;
+    width: 50px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.container{
+    margin-top: 50px;
+    margin: 50px 30px;
+}
+.tab{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: rgb(170, 170, 170);
+
+}
+.tab th,.tab td{
+    border: 1px solid rgb(242,242,242);
+    height: 50px;
+    padding-left: 10px;
+}
+.tab td{
+    color: rgb(19, 19, 19);
+}
+.data-column img{
+    position: relative;
+    top: 3px;
+    cursor: pointer;
+}
+.data-column{
+    width: 200px;
+}
+.name-column{
+    width: 150px;
+}
+.address-column{
+    width: 300px;
+}
+.code-column{
+    width: 150px;
+}
+.editBtn,.delBtn{
+    background-color: white;
+    width: 50px;
+    border: 1px solid rgb(230, 230, 230);
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.delBtn{
+    background-color: tomato;
+    color: white;
+    border: none;
+}
+
+/* 遮罩层 */
+.mask{
+	position: fixed;
+	top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+	background-color: rgba(101, 101, 101, 0.5);
+    z-index: 9999;
+    /* display: none; */
+}
+.mask-container{
+	position: relative;
+	width: 280px;
+	height: 260px;
+	margin: 80px auto 0 auto;
+	background-color: #fff;
+    border-radius: 5px;
+    padding: 20px 20px;
+    color: rgb(109, 109, 109);
+}
+.mask-container p,.mask-container .inputtext{
+    margin-bottom: 10px;
+    width: 260px;
+}
+.mask-btn{
+    float: right;
+}
+.cancelbtn,.savebtn{
+    border: none;
+    width: 50px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.cancelbtn{
+    background-color: tomato;
+    color: white;
+}
+.savebtn{
+    background-color: rgb(64, 158, 255);
+    color: white;
+}

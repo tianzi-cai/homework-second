@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>备忘录</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="wrapper" style="margin-left: 100px;">
+        <h2>todoList</h2>
+        <input type="text" class="addlistvalue">
+        <button v-on:click="myclick">添加</button><hr>
+        <!-- 模版 -->
+        <div class="todolist">
+            {{message}}
+        </div>
+        <!-- 接收缓存数据 -->
+        <div class="newtodolist"></div>
+    </div>
+
+    <script>
+        var todoList =[];
+        var wrapper = new Vue({
+            el:".wrapper",
+            data :{
+                message:""
+            },
+
+            methods :{
+                myclick :function(){
+
+                    // 判断输入的是否为空
+                    let addlistvalue =document.querySelector('.addlistvalue');
+                    if(!addlistvalue.value.trim()){
+                        alert("输入为空，请重新输入");
+                    }
+                    // 判断是否重复输入
+                    else if(todoList.indexOf(addlistvalue.value.trim())!=-1){
+                        alert("重复输入，请重新输入");
+                    }else{
+                        let todolist =document.querySelector('.todolist');
+                        let newitem = document.createElement('div');
+                        newitem.innerHTML =this.message;
+                        
+                        todolist.appendChild(newitem);
+                        this.message = addlistvalue.value.trim();
+
+                        // 添加至本地存储
+                        todoList.push(this.message);
+                        localStorage.setItem('todoList',JSON.stringify(todoList));
+
+                    }
+
+                    // 清空
+                    addlistvalue.value='';
+
+                }
+            }
+        });
+
+        // 从缓存中读取数据
+        if(localStorage.getItem('todoList')){
+            todoList = JSON.parse(localStorage.getItem('todoList'));
+        }
+        if(todoList){
+            let newtodolist = document.querySelector('.newtodolist');
+            newtodolist.innerHTML='';
+            let htmltext ='';
+            for(let i=0;i<todoList.length;i++){
+                let item =`
+                <div>${todoList[i]}</div>`;
+                htmltext +=item;
+            }
+            newtodolist.innerHTML =htmltext;
+        }
+
+    </script>
+</body>
+</html>
